@@ -1,19 +1,43 @@
-from newspaper import Article
+import requests
+import pandas as pd
+from config import NEWS_API_KEY, NEWS_API_URL
 
-def scrape_news(url):
-    """Scrapes a single news article from a URL."""
-    article = Article(url)
-    article.download()
-    article.parse()
-    return {
-        "title": article.title,
-        "source": article.source_url,
-        "content": article.text,
-        "published_at": article.publish_date
+def fetch_news_data(query="news", country="us", page_size=100):
+    """Fetches news articles from NewsAPI."""
+    params = {
+        "q": query,
+        "country": country,
+        "apiKey": NEWS_API_KEY,
+        "pageSize": page_size
     }
 
-# Example usage:
+    response = requests.get(NEWS_API_URL, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        articles = data.get("articles", [])
+
+        news_list = []
+        for article in articles:
+            news_list.append({
+                "title": article["title"],
+                "source": article["source"]["name"],
+                "description": article["description"],
+                "url": article["url"],
+                "published_at": article["publishedAt"]
+            })
+
+        return news_list
+    else:
+        print("Error fetching data:", response.status_code)
+        return []
+
+def save_to_csv(news_list, filename="data/news_data.csv"):
+    """Saves news data to a CSV file."""
+    df = pd.DataFrame(news_list)
+    df.to_csv(filename, index=False)
+    print(f"Data saved to {filename}")
+
 if __name__ == "__main__":
-    url = "https://www.bbc.com/news/world-61767774"
-    news_data = scrape_news(url)
-    print(news_data)
+    news_data = fetch_news_data()
+    if news_data:
+        save_to_csv(news_data)
