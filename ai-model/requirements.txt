@@ -1,6 +1,6 @@
-tensorflow
-torch
+fastapi
 scikit-learn
 numpy
 pandas
 matplotlib
+uvicorn
