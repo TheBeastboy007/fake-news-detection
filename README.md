@@ -1,17 +1,57 @@
-# Fake News Detection Project
+# 🧠 Fake News Detection System
 
-## Overview
-This project aims to build a system that collects news articles, preprocesses the data, and uses AI to classify news as real or fake. It is built using microservices architecture with Docker for containerization.
+An AI-powered, Dockerized microservices project that detects whether a news article is real or fake using machine learning techniques. The project features an interactive frontend dashboard and robust backend with circuit breaker support for fault tolerance.
 
-## Services
-- **Data Collection:** Fetches news articles from various sources.
-- **Preprocessing:** Cleans and tokenizes text data.
-- **AI Model:** Trains and runs an AI model for fake news detection.
-- **API Gateway:** Routes requests between services.
-- **Dashboard:** Provides a frontend interface for visualization.
+---
 
-## Setup Instructions
-1. Clone the repository:
-   ```bash
-   git clone <repository-url>
-   cd fake-news-detection
+## 🔍 Overview
+
+This system leverages machine learning and microservices to analyze news articles and classify them as **Real** or **Fake**.  
+It consists of five main components, each running in its own Docker container:
+
+- **AI Model Microservice (FastAPI)**: Predicts whether the news is fake or real.
+- **Data Collection Microservice (Flask)**: Stores submitted news articles for future retraining.
+- **API Gateway (FastAPI)**: Routes requests between frontend and backend with built-in **Circuit Breaker**.
+- **Dashboard (Flask)**: Modern UI for users to input news content and view predictions with confidence score.
+- **ML Pipeline**: Built with Scikit-learn using Logistic Regression, achieving over 95% accuracy.
+
+---
+
+## 🧱 Architecture
+
+```text
+[Dashboard UI] ──> [API Gateway] ──> [AI Model]
+                            └────> [Data Collection]
+
+## 📦 Features
+
+- 🧠 **ML Model**: Logistic Regression (95% Accuracy)
+- 🔁 **Microservices** (FastAPI + Flask)
+- 🐳 **Fully Dockerized Deployment**
+- 🌐 **Frontend Dashboard** with confidence meter
+- 🛑 **Circuit Breaker** in API Gateway
+- 📊 **Confusion Matrix, ROC Curve, Accuracy Graphs**
+
+---
+
+## 🛠️ Technologies Used
+
+| Category         | Tools/Tech                          |
+|------------------|--------------------------------------|
+| Backend          | Python, Flask, FastAPI               |
+| ML Libraries     | Scikit-learn, Pandas, NumPy          |
+| Frontend         | HTML, CSS, JavaScript                |
+| Containerization | Docker, Docker Compose               |
+| Architecture     | Microservices                        |
+| DevOps           | Git, GitHub                          |
+| Dataset          | Kaggle Fake and Real News Dataset    |
+
+---
+
+## 🚀 Setup Instructions
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/your-username/fake-news-detection.git
+cd fake-news-detection
