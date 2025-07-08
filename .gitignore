@@ -3,3 +3,13 @@ __pycache__/
 venv/
 node_modules/
 *.env
+
+# Ignore large datasets
+data-collection/data/Fake.csv
+data-collection/data/True.csv
+data-collection/data/data.csv
+data-collection/data/merged_news.csv
+data-collection/data/News_Category_Dataset_v3.json
+
+# Ignore large library files
+ai-model/libs/torch-2.6.0-cp313-cp313-win_amd64.whl
